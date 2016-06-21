@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import static com.google.common.collect.Maps.newHashMap;
 
@@ -48,7 +49,20 @@ public class Draw {
      * TODO: Reimplement the method above using Streams.
      */
     public static String generateBoardStream() {
-        throw new UnsupportedOperationException();
+        StringBuilder board = new StringBuilder();
+
+        LongStream.range(0, MAX).forEach(y -> {
+            LongStream.range(0, MAX).forEach(x -> {
+                if ((x == y || x + y == MAX - 1)) {
+                    board.append("x ");
+                } else {
+                    board.append("- ");
+                }
+            });
+            board.append("\n");
+        });
+
+        return board.toString();
     }
 
     @EqualsAndHashCode
@@ -93,7 +107,8 @@ public class Draw {
          * TODO: Return the maximum x and y dimensions of the board.
          */
         Position getDimensions() {
-            throw new UnsupportedOperationException();
+            return map.keySet().stream()
+                    .reduce(Position.of(0, 0), (p1, p2) -> Position.of(Math.max(p1.x, p2.x), Math.max(p1.y, p2.y)));
         }
 
         Board copy() {
@@ -127,8 +142,15 @@ public class Draw {
      * The 'max' parameter defines how many boards should be printed.
      */
      public static void print(Supplier<Board> boardSupplier, @Nullable Position dim, long max) {
-         throw new UnsupportedOperationException();
-     }
+        Stream<Board> stream = Stream.generate(boardSupplier);
+        if (max >= 0) {
+            stream = stream.limit(max);
+        }
+        stream.forEach(b -> {
+            reset();
+            System.out.println(b.toString(dim));
+        });
+    }
 
     @RequiredArgsConstructor
     public static class BoundedDiagonalMovesProvider implements Supplier<Board> {

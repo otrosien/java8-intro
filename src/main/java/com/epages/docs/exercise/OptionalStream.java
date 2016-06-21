@@ -1,5 +1,6 @@
 package com.epages.docs.exercise;
 
+import com.google.common.collect.Maps;
 import com.neovisionaries.i18n.CurrencyCode;
 import lombok.Data;
 import lombok.Singular;
@@ -9,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.epages.docs.exercise.OptionalStream.PaymentStatus.CANCELLED;
 import static com.epages.docs.exercise.OptionalStream.PaymentStatus.OPEN;
 import static com.epages.docs.exercise.OptionalStream.PaymentStatus.PAID;
 import static com.neovisionaries.i18n.CurrencyCode.EUR;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Variation of the model used in Lombok.
@@ -77,35 +80,52 @@ class OptionalStream {
          * Assume that customer names are unique.
          */
         Optional<Customer> findByName(String name) {
-            throw new UnsupportedOperationException();
+            return findAll().stream()
+                    .filter(c -> c.getName().equals(name))
+                    .findFirst();
         }
 
         /**
          * Get all Orders paid in the given currency.
          */
         public List<Order> getAllPaidOrders(CurrencyCode currency) {
-            throw new UnsupportedOperationException();
+            return findAll().stream()
+                    .flatMap(o -> o.getOrders().stream())
+                    .filter(Order::isPaid)
+                    .filter(o -> currency.equals(o.getCurrency()))
+                    .collect(toList());
         }
 
         /**
          * Get a customer's orders by paymentStatus status.
          */
         public Map<PaymentStatus, List<Order>> getOrdersByStatus(String customerName) {
-            throw new UnsupportedOperationException();
+            return findByName(customerName)
+                    .map(c -> c.getOrders().stream()
+                            .collect(Collectors.groupingBy(Order::getPaymentStatus)))
+                    .orElse(Maps.newHashMap());
         }
 
         /**
          * Get all customers that have cancelled at least one order
          */
         public List<Customer> getHappyCustomers() {
-            throw new UnsupportedOperationException();
+            return findAll().stream()
+                    .filter(c -> c.getOrders().stream()
+                            .noneMatch(p -> CANCELLED.equals(p.getPaymentStatus())))
+                    .collect(toList());
         }
 
         /**
          * Validates if the Order contains any Products that are not available in that currency.
          */
         public boolean validateOrder() {
-            throw new UnsupportedOperationException();
+            return findAll().stream()
+                    .flatMap(c -> c.getOrders().stream())
+                    .map(o -> o.getLineItems().stream()
+                            .flatMap(li -> li.getProduct().getPrices().keySet().stream())
+                            .anyMatch(cc -> o.getCurrency().equals(cc)))
+                    .allMatch(id -> id);
         }
 
         /**
@@ -115,7 +135,14 @@ class OptionalStream {
          * Try not to use getOrDefault, you have a new best friend.
          */
         public long getOutstandingAmount() {
-            throw new UnsupportedOperationException();
+            return findAll().stream()
+                    .flatMap(c -> c.getOrders().stream())
+                    .filter(o -> OPEN.equals(o.getPaymentStatus()))
+                    .filter(o -> EUR.equals(o.getCurrency()))
+                    .flatMap(p -> p.getLineItems().stream())
+                    //.mapToLong(li -> li.getProduct().getPrices().getOrDefault(EUR, 0L))
+                    .mapToLong(li -> Optional.ofNullable(li.getProduct().getPrices().get(EUR)).orElse(0L))
+                    .sum();
         }
 
     }

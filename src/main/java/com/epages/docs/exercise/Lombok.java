@@ -1,5 +1,16 @@
 package com.epages.docs.exercise;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.Singular;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,19 +41,47 @@ class Lombok {
     static class Price {
     }
 
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
+    @RequiredArgsConstructor
+    @EqualsAndHashCode
     static class Product {
+        @NonNull
         private String name;
+        @Setter(AccessLevel.PUBLIC)
         private String description;
         private Price price;
     }
 
+    // @Value also possible
+    @RequiredArgsConstructor
+    @EqualsAndHashCode(of = "product")
     static class LineItem {
-        private Product product;
-        private Integer amount;
+        @NonNull
+        private final Product product;
+        @NonNull
+        private final Integer amount;
     }
 
+    @Builder
+    @Getter
+    @ToString
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     static class Order {
-        private LocalDateTime createdAt;
-        private List<LineItem> lineItems;
+        @NonNull
+        private final LocalDateTime createdAt;
+        @NonNull
+        @Singular
+        private final List<LineItem> lineItems;
+
+        static class OrderBuilder {
+            OrderBuilder() {
+                createdAt(LocalDateTime.now());
+            }
+            public OrderBuilder product(@NonNull Product product) {
+                lineItem(new LineItem(product, 1));
+                return this;
+            }
+        }
     }
 }
