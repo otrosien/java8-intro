@@ -20,8 +20,9 @@ dependencies {
     // 'test.useTestNG()' to your build script.
     testCompile 'junit:junit:4.12'
 
-    compile "org.projectlombok:lombok:1.16.8"
-
+    compileOnly "org.projectlombok:lombok:1.16.8"
+    testCompile "org.projectlombok:lombok:1.16.8"
+    
     compile group: 'org.assertj', name: 'assertj-core', version: '3.4.1'
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
     compile group: 'com.pholser', name: 'junit-quickcheck-core', version: '0.6'

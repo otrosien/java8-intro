@@ -1,12 +1,7 @@
 package com.epages.exercise.lombok;
 
-import lombok.SneakyThrows;
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
-
-import com.epages.exercise.lombok.Lombok.LineItem;
-import com.epages.exercise.lombok.Lombok.Order;
-import com.epages.exercise.lombok.Lombok.Product;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -16,9 +11,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.epages.exercise.lombok.Lombok.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
+
+import com.epages.exercise.lombok.Lombok.LineItem;
+import com.epages.exercise.lombok.Lombok.Order;
+import com.epages.exercise.lombok.Lombok.Product;
+
+import lombok.SneakyThrows;
 
 public class LombokTest {
 
@@ -139,6 +139,6 @@ public class LombokTest {
     }
 
     private static Class<?> orderBuilderClass() throws ClassNotFoundException {
-        return Class.forName("com.epages.docs.exercise.Lombok$Order$OrderBuilder");
+        return Class.forName("com.epages.exercise.lombok.Lombok$Order$OrderBuilder");
     }
 }
