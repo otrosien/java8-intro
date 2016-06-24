@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import com.neovisionaries.i18n.CurrencyCode;
 
@@ -28,54 +27,35 @@ class CustomerService {
      * Assume that customer names are unique.
      */
     Optional<Customer> findByName(String name) {
-        return findAll().stream()
-                .filter(c -> name.equals(c.getName()))
-                .findFirst();
+        throw new UnsupportedOperationException();
     }
 
     /**
      * Get all Orders paid in the given currency.
      */
     public List<Order> getAllPaidOrders(CurrencyCode currency) {
-        return findAll()
-        .stream()
-        .map(Customer::getOrders)
-        .flatMap(List::stream)
-        .filter(o -> currency.equals(o.getCurrency()))
-        .filter(Order::isPaid)
-        .collect(Collectors.toList())
-        ;
+        throw new UnsupportedOperationException();
     }
 
     /**
      * Get a customer's orders by paymentStatus status.
      */
     public Map<Order.PaymentStatus, List<Order>> getOrdersByStatus(String customerName) {
-        return findByName(customerName)
-                .map(Customer::getOrders)
-                .orElse(Collections.emptyList())
-                .stream()
-                .collect(Collectors.groupingBy(Order::getPaymentStatus));
+        throw new UnsupportedOperationException();
     }
 
     /**
      * Get all customers that have cancelled at least one order
      */
-    public List<Customer> getHappyCustomers() {
-        return findAll().stream()
-                .filter(c -> ! c.getOrders().isEmpty())
-                .collect(Collectors.toList());
+    public List<Customer> getUnhappyCustomers() {
+        throw new UnsupportedOperationException();
     }
 
     /**
      * Validates if the Order contains only Products that are available in that currency.
      */
     public boolean validateOrder(final Order order) {
-        return order.getLineItems()
-                .stream()
-                .map(LineItem::getProduct)
-                .allMatch(p -> p.getPrices().containsKey(order.getCurrency()))
-        ;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -85,16 +65,7 @@ class CustomerService {
      * Try not to use getOrDefault, you have a new best friend.
      */
     public long getOutstandingAmount() {
-        return findAll()
-                .stream()
-                .map(Customer::getOrders)
-                .flatMap(List::stream)
-                .filter(o -> ! o.isPaid())
-                .filter(o -> CurrencyCode.EUR.equals(o.getCurrency()))
-                .map(Order::getLineItems)
-                .flatMap(List::stream)
-                .mapToLong(LineItem::getAmount)
-                .sum();
+        throw new UnsupportedOperationException();
     }
 
 }
