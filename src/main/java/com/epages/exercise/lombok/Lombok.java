@@ -1,4 +1,4 @@
-package com.epages.docs.exercise;
+package com.epages.exercise.lombok;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

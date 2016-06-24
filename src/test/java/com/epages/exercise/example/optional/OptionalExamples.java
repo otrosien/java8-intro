@@ -1,4 +1,4 @@
-package com.epages.docs.example.optional;
+package com.epages.exercise.example.optional;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;

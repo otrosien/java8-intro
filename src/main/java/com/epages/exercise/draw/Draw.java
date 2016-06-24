@@ -1,4 +1,4 @@
-package com.epages.docs.exercise;
+package com.epages.exercise.draw;
 
 import com.google.common.base.Strings;
 import lombok.AllArgsConstructor;

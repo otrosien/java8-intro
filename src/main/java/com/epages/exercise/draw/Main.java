@@ -1,6 +1,6 @@
-package com.epages.docs;
+package com.epages.exercise.draw;
 
-import static com.epages.docs.exercise.Draw.*;
+import static com.epages.exercise.draw.Draw.*;
 
 /**
  * HypnoToad

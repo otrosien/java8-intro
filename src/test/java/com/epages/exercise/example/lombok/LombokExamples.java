@@ -1,4 +1,4 @@
-package com.epages.docs.example.lombok;
+package com.epages.exercise.example.lombok;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

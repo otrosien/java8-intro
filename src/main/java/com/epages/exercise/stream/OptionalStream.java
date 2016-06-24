@@ -1,4 +1,4 @@
-package com.epages.docs.exercise;
+package com.epages.exercise.stream;
 
 import com.google.common.collect.Maps;
 import com.neovisionaries.i18n.CurrencyCode;
@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.epages.docs.exercise.OptionalStream.PaymentStatus.CANCELLED;
-import static com.epages.docs.exercise.OptionalStream.PaymentStatus.OPEN;
-import static com.epages.docs.exercise.OptionalStream.PaymentStatus.PAID;
+import static com.epages.exercise.stream.OptionalStream.PaymentStatus.CANCELLED;
+import static com.epages.exercise.stream.OptionalStream.PaymentStatus.OPEN;
+import static com.epages.exercise.stream.OptionalStream.PaymentStatus.PAID;
 import static com.neovisionaries.i18n.CurrencyCode.EUR;
 import static java.util.stream.Collectors.toList;
 

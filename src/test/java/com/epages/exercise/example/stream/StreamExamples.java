@@ -1,4 +1,4 @@
-package com.epages.docs.example.stream;
+package com.epages.exercise.example.stream;
 
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;

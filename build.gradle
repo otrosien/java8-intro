@@ -30,7 +30,7 @@ dependencies {
     compile group: 'com.neovisionaries', name: 'nv-i18n', version: '1.17'
 }
 
-mainClassName = "com.epages.docs.Main"
+mainClassName = "com.epages.exercise.draw.Main"
 
 test {
     testLogging {

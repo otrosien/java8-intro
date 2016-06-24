@@ -1,4 +1,4 @@
-package com.epages.docs.example.lambda;
+package com.epages.exercise.example.lambda;
 
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;

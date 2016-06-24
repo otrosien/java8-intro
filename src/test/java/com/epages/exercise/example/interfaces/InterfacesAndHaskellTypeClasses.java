@@ -1,4 +1,4 @@
-package com.epages.docs.example.interfaces;
+package com.epages.exercise.example.interfaces;
 
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
